@@ -1,8 +1,9 @@
 const db  = require('../config/dbConnection');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('../config');
 
-exports.register = (req, res) => {
+const register = (req, res) => {
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
           req.body.email
@@ -44,7 +45,7 @@ exports.register = (req, res) => {
       );
 }
 
-exports.login =(req, res) => {
+const login =(req, res) => {
     db.query(
         `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
         (err, result) => {
@@ -92,7 +93,7 @@ exports.login =(req, res) => {
       );
 }
 
-exports.get_all_info = (req, res, next) => {
+ const get_all_info = (req, res, next) => {
     if(
         !req.headers.authorization ||
         !req.headers.authorization.startsWith('Bearer') ||
@@ -110,4 +111,10 @@ exports.get_all_info = (req, res, next) => {
         if (error) throw error;
         return res.send({ error: false, data: results[0], message: 'Fetch Successfully.' });
     });
+}
+
+module.exports = {
+  login,
+  register,
+  get_all_info
 }

@@ -3,21 +3,25 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const indexRouter = require('./app/routes/router.js');
+const router = require('./app/routes');
 
 const app = express();
 
 app.use(express.json());
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: "128000kb",
+  extended: true
+}));
 
 app.use(bodyParser.urlencoded({
+    limit: "128000kb",
     extended: true
 }));
 
 app.use(cors());
 
-app.use('/api', indexRouter);
+router.registerApplicationRoutes(app);
 
 // Handling Errors
 app.use((err, req, res, next) => {
