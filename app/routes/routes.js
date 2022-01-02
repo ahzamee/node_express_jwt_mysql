@@ -1,3 +1,3 @@
 module.exports = {
-    '/api': require('./user'),
+    '/api': require('./user')
 }

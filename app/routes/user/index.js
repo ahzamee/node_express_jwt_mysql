@@ -4,11 +4,11 @@ const { signupValidation, loginValidation } = require('../../validation/validati
 const controller = require('../../controllers/controller');
 
 
-router.post('/register', signupValidation, controller.register);
+router.post('/register', signupValidation, controller.user_register);
 
-router.post('/login', loginValidation, controller.login);
+router.post('/login', loginValidation, controller.user_login);
 
-router.get('/user', signupValidation, controller.get_all_info);
+router.get('/user', signupValidation, controller.user_get_all_info);
 
 
 module.exports = router;
